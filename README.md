@@ -1,16 +1,52 @@
-# React + Vite
+# Property Rental Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Website
 
-Currently, two official plugins are available:
+https://property-rental-client-sigma.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Purpose
 
-## React Compiler
+Property Rental Platform is a full-stack web application where tenants can browse properties, make bookings, and complete payments online. Property owners can add and manage properties, approve or reject booking requests, and track their earnings through a dashboard.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Key Features
 
-## Expanding the ESLint configuration
+* User Authentication with JWT
+* Role-Based Dashboard (Tenant, Owner, Admin)
+* Property Listing and Search
+* Property Booking System
+* Stripe Payment Integration
+* Booking Approval and Rejection
+* Owner Dashboard Analytics
+* Monthly Earnings Chart
+* Responsive Design for Mobile, Tablet, and Desktop
+* Loading Page and Error Page
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## NPM Packages Used
+
+### Frontend
+
+* React
+* React Router DOM
+* Axios
+* Tailwind CSS
+* Recharts
+
+### Backend
+
+* Express.js
+* MongoDB
+* Mongoose
+* JWT (jsonwebtoken)
+* bcrypt
+* Stripe
+* dotenv
+* cors
+* cookie-parser
+
+## Client Repository
+
+https://github.com/your-username/property-rental-client
+
+## Server Repository
+
+https://github.com/your-username/property-rental-server
