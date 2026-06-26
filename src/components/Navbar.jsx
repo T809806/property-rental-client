@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -13,8 +13,16 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  // 🔥 ACTIVE STYLE FUNCTION
+  const linkStyle = ({ isActive }) =>
+    `px-3 py-1 rounded-md transition-all duration-300 ${
+      isActive
+        ? "bg-[#d6b46d] text-black"
+        : "text-gray-200 hover:bg-[#d6b46d] hover:text-black"
+    }`;
+
   return (
-    <nav className="bg-[#0b0f14] text-white border-b border-gray-800">
+    <nav className="bg-[#050b14] border-b border-[#1f2937]">
 
       {/* TOP BAR */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -24,16 +32,8 @@ const Navbar = () => {
           <div className="w-10 h-10">
             <svg viewBox="0 0 64 64" fill="none">
               <rect x="6" y="6" width="52" height="52" rx="12" fill="#d6b46d" />
-              <path
-                d="M18 34L32 22L46 34V48H18V34Z"
-                stroke="black"
-                strokeWidth="3"
-              />
-              <path
-                d="M26 48V36H38V48"
-                stroke="black"
-                strokeWidth="3"
-              />
+              <path d="M18 34L32 22L46 34V48H18V34Z" stroke="black" strokeWidth="3" />
+              <path d="M26 48V36H38V48" stroke="black" strokeWidth="3" />
             </svg>
           </div>
 
@@ -43,30 +43,43 @@ const Navbar = () => {
         </div>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6 text-gray-200">
+        <div className="hidden md:flex items-center gap-4">
 
-          <Link to="/" className="hover:text-[#d6b46d]">Home</Link>
-          <Link to="/properties" className="hover:text-[#d6b46d]">Properties</Link>
+          <NavLink to="/" className={linkStyle}>
+            Home
+          </NavLink>
+
+          <NavLink to="/properties" className={linkStyle}>
+            Properties
+          </NavLink>
 
           {!user && (
             <>
-              <Link to="/login" className="hover:text-[#d6b46d]">Login</Link>
-              <Link to="/register" className="hover:text-[#d6b46d]">Register</Link>
+              <NavLink to="/login" className={linkStyle}>
+                Login
+              </NavLink>
+
+              <NavLink to="/register" className={linkStyle}>
+                Register
+              </NavLink>
             </>
           )}
 
           {user && (
             <>
-              <Link to="/dashboard" className="hover:text-[#d6b46d]">Dashboard</Link>
+              <NavLink to="/dashboard" className={linkStyle}>
+                Dashboard
+              </NavLink>
 
               <button
                 onClick={handleLogout}
-                className="bg-red-500 px-3 py-1 rounded"
+                className="bg-red-500 px-3 py-1 rounded text-white hover:opacity-80 transition"
               >
                 Logout
               </button>
             </>
           )}
+
         </div>
 
         {/* MOBILE HAMBURGER */}
@@ -81,28 +94,40 @@ const Navbar = () => {
 
       {/* MOBILE MENU */}
       {open && (
-        <div className="md:hidden px-4 pb-4 flex flex-col gap-3 text-gray-200">
+        <div className="md:hidden px-4 pb-4 flex flex-col gap-3">
 
-          <Link onClick={() => setOpen(false)} to="/">Home</Link>
-          <Link onClick={() => setOpen(false)} to="/properties">Properties</Link>
+          <NavLink onClick={() => setOpen(false)} to="/" className={linkStyle}>
+            Home
+          </NavLink>
+
+          <NavLink onClick={() => setOpen(false)} to="/properties" className={linkStyle}>
+            Properties
+          </NavLink>
 
           {!user && (
             <>
-              <Link onClick={() => setOpen(false)} to="/login">Login</Link>
-              <Link onClick={() => setOpen(false)} to="/register">Register</Link>
+              <NavLink onClick={() => setOpen(false)} to="/login" className={linkStyle}>
+                Login
+              </NavLink>
+
+              <NavLink onClick={() => setOpen(false)} to="/register" className={linkStyle}>
+                Register
+              </NavLink>
             </>
           )}
 
           {user && (
             <>
-              <Link onClick={() => setOpen(false)} to="/dashboard">Dashboard</Link>
+              <NavLink onClick={() => setOpen(false)} to="/dashboard" className={linkStyle}>
+                Dashboard
+              </NavLink>
 
               <button
                 onClick={() => {
                   setOpen(false);
                   handleLogout();
                 }}
-                className="bg-red-500 px-3 py-1 rounded text-left"
+                className="bg-red-500 px-3 py-1 rounded text-white text-left"
               >
                 Logout
               </button>
@@ -111,6 +136,7 @@ const Navbar = () => {
 
         </div>
       )}
+
     </nav>
   );
 };

@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const Reviews = () => {
   const reviews = [
     {
@@ -23,10 +25,15 @@ const Reviews = () => {
   ];
 
   return (
-    <div className="py-20 px-6 bg-[#0b0f14]">
+    <div className="py-16 px-4 bg-[#0b1220]">
 
       {/* TITLE */}
-      <div className="text-center mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-12"
+      >
         <h2 className="text-3xl md:text-4xl font-bold text-[#d6b46d]">
           Customer Reviews
         </h2>
@@ -34,27 +41,44 @@ const Reviews = () => {
         <p className="text-gray-400 mt-3">
           What our tenants say about us
         </p>
-      </div>
+      </motion.div>
 
-      {/* REVIEW CARDS */}
+      {/* CARDS */}
       <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
 
         {reviews.map((r, index) => (
-          <div
+          <motion.div
             key={index}
-            className="bg-[#111827] border border-[#d6b46d] p-5 rounded-xl hover:scale-105 transition"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+            className="relative bg-[#111827] border border-[#d6b46d]/30 p-6 rounded-xl shadow-lg overflow-hidden"
           >
-            <h3 className="text-white font-bold mb-1">{r.name}</h3>
 
-            {/* STARS */}
-            <p className="text-[#d6b46d] mb-2">
-              {"★".repeat(r.rating)}
-            </p>
+            {/* glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#d6b46d]/10 to-transparent opacity-20"></div>
 
-            <p className="text-gray-400 text-sm">
-              {r.comment}
-            </p>
-          </div>
+            <div className="relative z-10">
+
+              {/* name */}
+              <h3 className="text-white font-bold mb-2">
+                {r.name}
+              </h3>
+
+              {/* stars */}
+              <p className="text-[#d6b46d] mb-3 text-lg">
+                {"★".repeat(r.rating)}
+              </p>
+
+              {/* comment */}
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {r.comment}
+              </p>
+
+            </div>
+
+          </motion.div>
         ))}
 
       </div>

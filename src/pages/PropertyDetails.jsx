@@ -152,7 +152,7 @@ const PropertyDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f14] text-white p-6">
+    <div className="w-full max-w-3xl mx-auto min-h-0 bg-[#0b1220] text-white p-4 rounded-xl border border-[#d6b46d]/30 shadow-md">
       <h1 className="text-3xl font-bold text-[#d6b46d]">
         {property.title}
       </h1>

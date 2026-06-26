@@ -23,9 +23,13 @@ console.log("USER ID =", user?._id);
       setFavorites(favoriteRes.data);
 
       const bookingRes = await api.get(
-        `/bookings/${user._id}`
-      );
-
+  `/bookings/user/${user._id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
       setBookings(bookingRes.data);
 
     } catch (error) {
@@ -166,7 +170,7 @@ console.log("USER ID =", user?._id);
               </td>
 
               <td className="border p-3">
-                ৳{fav.propertyId?.rent}
+                ৳{fav.propertyId?.price}
               </td>
 
               <td className="border p-3">

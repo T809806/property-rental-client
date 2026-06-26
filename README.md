@@ -44,9 +44,10 @@ Property Rental Platform is a full-stack web application where tenants can brows
 * cookie-parser
 
 ## Client Repository
-
-https://github.com/your-username/property-rental-client
+https://github.com/T809806/property-rental-client.git
 
 ## Server Repository
 
-https://github.com/your-username/property-rental-server
+https://github.com/T809806/property-rental-server.git
+
+
