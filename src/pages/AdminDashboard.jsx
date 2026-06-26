@@ -161,42 +161,43 @@ const AdminDashboard = () => {
           </tr>
         </thead>
 
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
+ <tbody>
+   {users.map((user) => (
+   <tr key={user._id}>
+   <td>{user.name}</td>
+   <td>{user.email}</td>
+   <td>{user.role}</td>
 
-              <td>
-                <button
-                  className="bg-blue-600 px-2 py-1 mr-2 text-white"
-                  onClick={() =>
-                    changeRole(user._id, "Owner")
-                  }
-                >
-                  Make Owner
-                </button>
+ <td>
+   <button
+   className="bg-blue-600 px-2 py-1 mr-2 text-white"
+   onClick={() =>
+    changeRole(user._id, "Owner")
+ }
+   >
+ Make Owner
+ </button>
 
-                <button
-                  className="bg-green-600 px-2 py-1 text-white"
-                  onClick={() =>
-                    changeRole(user._id, "Tenant")
-                  }
-                >
-                  Make Tenant
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+ <button
+     className="bg-green-600 px-2 py-1 text-white"
+     onClick={() =>
+     changeRole(user._id, "Tenant")
+   }
+ >
+ Make Tenant
+    </button>
+    </td>
+ </tr>
+  ))}
 
-      <h2 className="text-2xl mt-10 mb-4">
-        All Properties
-      </h2>
+ </tbody>
 
-      <table className="w-full border">
+   </table>
+
+ <h2 className="text-2xl mt-10 mb-4"> All Properties </h2>
+
+<table className="w-full border">
+  
         <thead>
           <tr>
             <th>Title</th>
