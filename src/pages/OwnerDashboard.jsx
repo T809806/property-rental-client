@@ -61,26 +61,17 @@ const OwnerDashboard = () => {
           },
         });
 
-        setEarningsData(earningsRes.data);
+ setEarningsData(earningsRes.data);
 
-        // ANALYTICS
-        const totalProperties =
+   const totalProperties =
+      ownerProperties.length;
 
+  const totalBookings = bookingRes.data.length;
 
-
-
-
-        ownerProperties.length;
-
-
-
-
-                const totalBookings = bookingRes.data.length;
-
-        const totalEarnings = bookingRes.data.reduce(
-          (sum, booking) => sum + (booking.amount || 0),
-          0
-        );
+ const totalEarnings = bookingRes.data.reduce(
+  (sum, booking) => sum + (booking.amount || 0),
+     0
+ );
 
         setAnalytics({
           totalEarnings,
@@ -104,14 +95,11 @@ const OwnerDashboard = () => {
   }
 
   return (
+
     <div className="text-white p-6">
+    <h1 className="text-3xl font-bold text-[#d6b46d] mb-6">  Owner Dashboard </h1>
 
-      {/* TITLE */}
-      <h1 className="text-3xl font-bold text-[#d6b46d] mb-6">
-        Owner Dashboard
-      </h1>
-
-      {/* ANALYTICS */}
+     
       <div className="grid md:grid-cols-3 gap-6 mb-10">
 
         <div className="bg-[#111827] p-5 rounded-xl border border-[#d6b46d]">
@@ -137,7 +125,7 @@ const OwnerDashboard = () => {
 
       </div>
 
-      {/* PROPERTIES */}
+     
       <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
         My Properties
       </h2>
@@ -157,7 +145,7 @@ const OwnerDashboard = () => {
 
       </div>
 
-      {/* BOOKINGS */}
+      
       <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
         Booking Requests
       </h2>
@@ -201,26 +189,23 @@ const OwnerDashboard = () => {
 
       </div>
 
-      {/* MODAL */}
-      {selected && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
+      
+   {selected && (
+     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
 
-          <div className="bg-white p-6 rounded w-96">
+     <div className="bg-white p-6 rounded w-96">
 
-            <h2 className="text-xl font-bold mb-4 text-black">
-              Rejection Details
-            </h2>
+   <h2 className="text-xl font-bold mb-4 text-black"> Rejection Details </h2>
 
-            <p className="text-black">
-              {selected.rejectionReason || "No reason provided"}
-            </p>
-
-            <button
-              onClick={() => setSelected(null)}
-              className="mt-4 bg-red-500 text-white px-4 py-2"
-            >
-              Close
-            </button>
+   <p className="text-black">
+      {selected.rejectionReason || "No reason provided"}
+       </p>
+  <button
+     onClick={() => setSelected(null)}
+       className="mt-4 bg-red-500 text-white px-4 py-2"
+    >
+       Close
+ </button>
 
           </div>
 

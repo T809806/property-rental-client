@@ -20,21 +20,26 @@ console.log("USER ID =", user?._id);
         },
       });
 
-      setFavorites(favoriteRes.data);
+ setFavorites(favoriteRes.data);
 
       const bookingRes = await api.get(
+
   `/bookings/user/${user._id}`,
+
   {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }
 );
-      setBookings(bookingRes.data);
+ setBookings(bookingRes.data);
 
-    } catch (error) {
-      console.log(error);
+ } catch (error) {
+
+ console.log(error);
+
     }
+
   };
 
   useEffect(() => {
@@ -59,46 +64,43 @@ console.log("USER ID =", user?._id);
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f14] text-white p-6">
 
-      <h1 className="text-3xl font-bold text-[#d6b46d] mb-6">
-        Dashboard
-      </h1>
+ <div className="min-h-screen bg-[#0b0f14] text-white p-6">
 
-      {/* PROFILE */}
-      <div className="bg-[#111827] p-6 rounded-xl border border-[#d6b46d] mb-10">
+   <h1 className="text-3xl font-bold text-[#d6b46d] mb-6"> Dashboard </h1>
 
-        <h2 className="text-2xl font-semibold">
-          Welcome, {user?.name}
-        </h2>
+ <div className="bg-[#111827] p-6 rounded-xl border border-[#d6b46d] mb-10">
 
-        <p>Email: {user?.email}</p>
-        <p>Role: {user?.role}</p>
+ <h2 className="text-2xl font-semibold">
+   Welcome, {user?.name}
+ </h2>
 
-        <Link
-          to="/profile"
-          className="inline-block mt-4 bg-[#d6b46d] text-black px-4 py-2 rounded"
-        >
-          View Profile
-        </Link>
+ <p>Email: {user?.email}</p>
+ <p>Role: {user?.role}</p>
 
-      </div>
+ <Link
+   to="/profile"
+ className="inline-block mt-4 bg-[#d6b46d] text-black px-4 py-2 rounded"
+  >
+ View Profile
 
-      {/* BOOKINGS */}
-      <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
-        My Bookings
-      </h2>
+ </Link>
 
-      <table className="w-full border border-gray-700 mb-10">
-        <thead>
-          <tr className="bg-[#111827]">
-            <th className="p-3 border">Property</th>
-            <th className="p-3 border">Booking Date</th>
-            <th className="p-3 border">Amount Paid</th>
-            <th className="p-3 border">Booking Status</th>
-            <th className="p-3 border">Payment Status</th>
-          </tr>
-        </thead>
+</div>
+
+ <h2 className="text-2xl font-bold text-[#d6b46d] mb-4"> My Bookings  </h2>
+
+ <table className="w-full border border-gray-700 mb-10">
+   <thead>
+  <tr className="bg-[#111827]">
+    <th className="p-3 border">Property</th>
+   <th className="p-3 border">Booking Date</th>
+   <th className="p-3 border">Amount Paid</th>
+   <th className="p-3 border">Booking Status</th>
+   <th className="p-3 border">Payment Status</th>
+
+  </tr>
+ </thead>
 
         <tbody>
           {bookings.map((booking) => (
@@ -129,7 +131,7 @@ console.log("USER ID =", user?._id);
         </tbody>
       </table>
 
-      {/* FAVORITES */}
+    
       <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
         My Favorites
       </h2>

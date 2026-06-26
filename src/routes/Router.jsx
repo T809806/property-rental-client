@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import Properties from "../pages/Properties";
 
 export const router = createBrowserRouter([
+  
   {
     path: "/",
     element: <MainLayout />,

@@ -30,7 +30,7 @@ const Register = () => {
     try {
       const res = await api.post("/auth/register", {
         ...form,
-        role: "Tenant", // default role requirement
+        role: "Tenant", 
       });
 
       setMessage("Registration successful");
@@ -57,16 +57,14 @@ const Register = () => {
   };
 
   return (
+
     <div className="min-h-screen flex items-center justify-center bg-[#0b0f14] text-white">
 
       <form
         onSubmit={handleRegister}
         className="w-[400px] bg-[#111827] p-8 rounded-xl border border-[#d6b46d]"
       >
-
-        <h2 className="text-2xl font-bold text-center text-[#d6b46d] mb-6">
-          Register
-        </h2>
+  <h2 className="text-2xl font-bold text-center text-[#d6b46d] mb-6"> Register </h2>
 
         <input
           type="text"

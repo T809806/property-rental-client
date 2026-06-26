@@ -18,7 +18,7 @@ const PropertyDetails = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
 
-  // FAVORITE
+  
   const handleFavorite = async () => {
     if (!token) {
       navigate("/login");
@@ -45,7 +45,7 @@ const PropertyDetails = () => {
     }
   };
 
-  // PAYMENT
+  
   const handlePayment = async () => {
     if (!token) {
       navigate("/login");
@@ -74,7 +74,7 @@ alert("Payment Intent Created Successfully");
 }
   };
 
-  // REVIEW
+  
   const handleReview = async () => {
     if (!token) {
       navigate("/login");
@@ -275,15 +275,16 @@ alert("Payment Intent Created Successfully");
               ⭐ {review.rating}/5
             </p>
 
-            <p className="text-gray-300 mt-2">
-              {review.comment}
-            </p>
+  <p className="text-gray-300 mt-2">
+     {review.comment}
+   </p>
 
-            <p className="text-xs text-gray-500 mt-2">
-              {new Date(review.createdAt).toLocaleDateString()}
-            </p>
-          </div>
-        ))}
+ <p className="text-xs text-gray-500 mt-2">
+ {new Date(review.createdAt).toLocaleDateString()}
+   </p>
+ </div>
+ 
+   ))}
       </div>
     </div>
   );

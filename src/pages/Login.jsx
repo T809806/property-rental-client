@@ -21,12 +21,12 @@ const Login = () => {
         password,
       });
 
-      // ✅ TOKEN save
+    
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
 
-      // ✅ USER save (FIXED PART)
+      
       if (res.data.user) {
         localStorage.setItem(
           "user",
@@ -36,7 +36,7 @@ const Login = () => {
 
       setMessage("Login successful");
 
-      // redirect after login
+      
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -46,13 +46,16 @@ const Login = () => {
       setMessage(
         error.response?.data?.message || "Login failed"
       );
+
     } finally {
       setLoading(false);
     }
   };
 
   return (
+
     <div className="flex justify-center items-center min-h-screen bg-black">
+      
       <form
         onSubmit={handleLogin}
         className="w-[400px] bg-[#111827] p-8 rounded-xl border border-[#d6b46d]"

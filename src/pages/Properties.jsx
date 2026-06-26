@@ -51,7 +51,7 @@ const [totalPages, setTotalPages] = useState(1);
         All Properties
       </h1>
 
-      {/* SEARCH + FILTER + SORT */}
+      
       <div className="grid md:grid-cols-3 gap-4 mb-8">
 
         <input
@@ -86,7 +86,7 @@ const [totalPages, setTotalPages] = useState(1);
 
       </div>
 
-      {/* PROPERTY GRID */}
+      
       {properties.length > 0 ? (
           <>
         <div className="grid md:grid-cols-3 gap-6">
@@ -99,7 +99,7 @@ const [totalPages, setTotalPages] = useState(1);
           ))}
 
         </div>
-   {/* PAGINATION */}
+   
     <div className="flex justify-center gap-3 mt-10">
       <button
         disabled={page === 1}
@@ -119,18 +119,17 @@ const [totalPages, setTotalPages] = useState(1);
         className="px-4 py-2 bg-gray-700 rounded disabled:opacity-50"
       >
         Next
+
       </button>
+
     </div>
   </>
 
+  ) : (
 
+ <p className="text-center text-gray-400 mt-10"> No Properties Found </p>
 
-
-      ) : (
-        <p className="text-center text-gray-400 mt-10">
-          No Properties Found
-        </p>
-      )}
+ )}
     </div>
   );
 };

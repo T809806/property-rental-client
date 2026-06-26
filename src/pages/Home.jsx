@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
 
@@ -37,8 +38,8 @@ const Home = () => {
   return (
     <div className="bg-[#050b14] text-white">
 
-      {/* ================= HERO ================= */}
-      <motion.section
+ <motion.section
+
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -48,36 +49,34 @@ const Home = () => {
             "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/75"></div>
+ }}
 
-        <div className="relative z-10 max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#d6b46d] mb-4">
-            Discover Luxury Rental Homes
-          </h1>
+   >
+ <div className="absolute inset-0 bg-black/75"> </div>
+ <div className="relative z-10 max-w-4xl">
+ <h1 className="text-4xl md:text-5xl font-bold text-[#d6b46d] mb-4"> Discover Luxury Rental Homes </h1>
 
-          <p className="text-gray-300 text-lg mb-8">
-            Premium properties for modern living. Find your perfect home easily.
-          </p>
+   <p className="text-gray-300 text-lg mb-8">
+ Premium properties for modern living. Find your perfect home easily.
+ </p>
 
-          {/* SEARCH BOX */}
-          <div className="bg-[#0b1220]/80 backdrop-blur-md border border-[#1f2937] p-5 rounded-2xl grid grid-cols-1 md:grid-cols-5 gap-3">
+        
+ <div className="bg-[#0b1220]/80 backdrop-blur-md border border-[#1f2937] p-5 rounded-2xl grid grid-cols-1 md:grid-cols-5 gap-3">
 
             <input className="p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white focus:border-[#d6b46d] outline-none" placeholder="Location" />
             <input className="p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white focus:border-[#d6b46d] outline-none" placeholder="Property Type" />
             <input className="p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white focus:border-[#d6b46d] outline-none" placeholder="Min Price" />
             <input className="p-3 rounded-lg bg-[#0f172a] border border-gray-700 text-white focus:border-[#d6b46d] outline-none" placeholder="Max Price" />
-
-            <button className="bg-[#d6b46d] text-black font-bold rounded-lg hover:scale-105 transition">
+ <button className="bg-[#d6b46d] text-black font-bold rounded-lg hover:scale-105 transition">
               Search
-            </button>
+     </button>
 
-          </div>
-        </div>
-      </motion.section>
+ </div>
+   </div>
 
-      {/* ================= FEATURED TITLE ================= */}
+ </motion.section>
+
+    
       <div className="py-16 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-[#d6b46d] mb-2">
           Featured Properties
@@ -87,7 +86,7 @@ const Home = () => {
         </p>
       </div>
 
-      {/* ================= PROPERTIES ================= */}
+     
       <div className="px-6 pb-20">
         <div className="grid md:grid-cols-3 gap-6">
 
@@ -102,7 +101,7 @@ const Home = () => {
                 className="bg-[#0b1220] border border-[#1f2937] rounded-xl p-5 hover:border-[#d6b46d] transition"
               >
 
-                {/* IMAGE */}
+               
                 <img
                   src={
                     item.images?.[0] ||
@@ -111,27 +110,27 @@ const Home = () => {
                   className="h-40 w-full object-cover rounded-lg mb-4"
                 />
 
-                {/* TITLE */}
+                
                 <h3 className="text-xl font-bold text-white">
                   {item.title}
                 </h3>
 
-                {/* LOCATION */}
+               
                 <p className="text-gray-400 text-sm">
                   📍 {item.location}
                 </p>
 
-                {/* TYPE */}
+               
                 <span className="inline-block mt-2 text-xs bg-[#d6b46d] text-black px-2 py-1 rounded-full">
                   {item.propertyType}
                 </span>
 
-                {/* PRICE */}
+                
                 <p className="mt-3 text-[#d6b46d] font-bold">
                   ৳ {item.price}
                 </p>
 
-                {/* BUTTON */}
+                
                 <button
                   onClick={() => handleViewDetails(item._id)}
                   className="mt-4 w-full py-2 rounded-lg bg-[#0f2f2f] border border-[#d6b46d] text-[#d6b46d]
@@ -151,7 +150,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ================= EXTRA SECTIONS ================= */}
+      
       <div className="space-y-24 pb-20">
 
         <WhyChooseUs />
@@ -163,7 +162,9 @@ const Home = () => {
       </div>
 
     </div>
+
   );
+  
 };
 
 export default Home;

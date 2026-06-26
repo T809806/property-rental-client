@@ -4,30 +4,40 @@ import { useLocation, Navigate } from "react-router-dom";
 import CheckoutForm from "../components/CheckoutForm";
 
 const stripePromise = loadStripe(
+
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+
 );
 
 const Payment = () => {
   const location = useLocation();
 
-  // যদি clientSecret না থাকে তাহলে payment page এ আসতে দেবে না
   if (!location.state?.clientSecret) {
     return <Navigate to="/properties" replace />;
   }
 
   return (
-    <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4 py-10">
-      <Elements
-        stripe={stripePromise}
-        options={{
-          clientSecret: location.state.clientSecret,
-          appearance: {
-            theme: "night",
-          },
-        }}
-      >
-        <CheckoutForm />
+
+<div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4 py-10">
+
+ <Elements
+
+stripe={stripePromise}
+ options={{
+ clientSecret: location.state.clientSecret,
+   appearance: {
+  theme: "night",
+
+ },
+
+ }}
+
+>
+
+<CheckoutForm />
+
       </Elements>
+      
     </div>
   );
 };
