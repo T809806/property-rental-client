@@ -27,62 +27,48 @@ const Reviews = () => {
   return (
     <div className="py-16 px-4 bg-[#0b1220]">
 
-      {/* TITLE */}
-      <motion.div
+       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="text-center mb-12"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-[#d6b46d]">
-          Customer Reviews
-        </h2>
+   >
 
-        <p className="text-gray-400 mt-3">
-          What our tenants say about us
-        </p>
-      </motion.div>
+ <h2 className="text-3xl md:text-4xl font-bold text-[#d6b46d]"> Customer Reviews </h2>
+ <p className="text-gray-400 mt-3"> What our tenants say about us  </p>
 
-      {/* CARDS */}
-      <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+ </motion.div>
 
-        {reviews.map((r, index) => (
-          <motion.div
+   <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+
+     {reviews.map((r, index) => (
+       <motion.div
             key={index}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
             className="relative bg-[#111827] border border-[#d6b46d]/30 p-6 rounded-xl shadow-lg overflow-hidden"
-          >
+   >
 
-            {/* glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#d6b46d]/10 to-transparent opacity-20"></div>
+ <div className="absolute inset-0 bg-gradient-to-br from-[#d6b46d]/10 to-transparent opacity-20"></div>
 
-            <div className="relative z-10">
+   <div className="relative z-10">
 
-              {/* name */}
-              <h3 className="text-white font-bold mb-2">
-                {r.name}
-              </h3>
+     <h3 className="text-white font-bold mb-2"> {r.name} </h3>
+     <p className="text-[#d6b46d] mb-3 text-lg"> {"★".repeat(r.rating)} </p>
+     <p className="text-gray-400 text-sm leading-relaxed"> {r.comment} </p>
 
-              {/* stars */}
-              <p className="text-[#d6b46d] mb-3 text-lg">
-                {"★".repeat(r.rating)}
-              </p>
+ </div>
 
-              {/* comment */}
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {r.comment}
-              </p>
+ </motion.div>
 
-            </div>
+   ))}
 
-          </motion.div>
-        ))}
+ </div>
 
-      </div>
-    </div>
+ </div>
+
   );
 };
 
