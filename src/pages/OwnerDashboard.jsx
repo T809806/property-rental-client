@@ -24,83 +24,74 @@ const OwnerDashboard = () => {
 
   const [properties, setProperties] = useState([]);
   const [bookings, setBookings] = useState([]);
-  const [earningsData, setEarningsData] =
-    useState([]);
+  const [selected, setSelected] = useState(null);
+  const [earningsData, setEarningsData] = useState([]);
 
-    const [loading, setLoading] =
-  useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // OWNER PROPERTIES
-        const propertyRes = await api.get(
-          "/properties",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const propertyRes = await api.get("/properties", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        const ownerProperties =
-          propertyRes.data.filter(
-            (p) => p.owner === user._id
-          );
+        const ownerProperties = propertyRes.data.filter(
+          (p) => p.owner?._id === user._id || p.owner === user._id
+        );
 
         setProperties(ownerProperties);
 
         // OWNER BOOKINGS
-        const bookingRes = await api.get(
-          "/bookings/owner/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const bookingRes = await api.get("/bookings/owner/all", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setBookings(bookingRes.data);
 
         // MONTHLY EARNINGS
-        const earningsRes = await api.get(
-          "/owner/monthly-earnings",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const earningsRes = await api.get("/owner/monthly-earnings", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        setEarningsData(
-          earningsRes.data
-        );
+        setEarningsData(earningsRes.data);
 
         // ANALYTICS
         const totalProperties =
-          ownerProperties.length;
 
-        const totalBookings =
-          bookingRes.data.length;
 
-        const totalEarnings =
-          bookingRes.data.reduce(
-            (sum, booking) =>
-              sum + (booking.amount || 0),
-            0
-          );
+
+
+
+        ownerProperties.length;
+
+
+
+
+                const totalBookings = bookingRes.data.length;
+
+        const totalEarnings = bookingRes.data.reduce(
+          (sum, booking) => sum + (booking.amount || 0),
+          0
+        );
 
         setAnalytics({
           totalEarnings,
           totalProperties,
           totalBookings,
         });
-
       } catch (error) {
-  console.log(error);
-} finally {
-  setLoading(false);
-}
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     if (token && user) {
@@ -108,45 +99,37 @@ const OwnerDashboard = () => {
     }
   }, [token, user]);
 
-if (loading) {
-  return <Loading />;
-}
+  if (loading) {
+    return <Loading />;
+  }
 
-return (
-    <div className="p-6">
+  return (
+    <div className="text-white p-6">
 
+      {/* TITLE */}
       <h1 className="text-3xl font-bold text-[#d6b46d] mb-6">
         Owner Dashboard
       </h1>
 
-      {/* SUMMARY CARDS */}
+      {/* ANALYTICS */}
       <div className="grid md:grid-cols-3 gap-6 mb-10">
 
         <div className="bg-[#111827] p-5 rounded-xl border border-[#d6b46d]">
-          <h3 className="text-gray-400">
-            Total Earnings
-          </h3>
-
+          <h3>Total Earnings</h3>
           <p className="text-2xl text-[#d6b46d]">
             ৳ {analytics.totalEarnings}
           </p>
         </div>
 
         <div className="bg-[#111827] p-5 rounded-xl border border-[#d6b46d]">
-          <h3 className="text-gray-400">
-            Total Properties
-          </h3>
-
+          <h3>Total Properties</h3>
           <p className="text-2xl text-[#d6b46d]">
             {analytics.totalProperties}
           </p>
         </div>
 
         <div className="bg-[#111827] p-5 rounded-xl border border-[#d6b46d]">
-          <h3 className="text-gray-400">
-            Total Bookings
-          </h3>
-
+          <h3>Total Bookings</h3>
           <p className="text-2xl text-[#d6b46d]">
             {analytics.totalBookings}
           </p>
@@ -154,45 +137,7 @@ return (
 
       </div>
 
-      {/* MONTHLY EARNINGS CHART */}
-      <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
-        Monthly Earnings
-      </h2>
-
-      <div className="bg-[#111827] p-6 rounded-xl mb-10">
-
-        <ResponsiveContainer
-          width="100%"
-          height={350}
-        >
-
-          <LineChart
-            data={earningsData}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-
-            <XAxis
-              dataKey="month"
-            />
-
-            <YAxis />
-
-            <Tooltip />
-
-            <Line
-              type="monotone"
-              dataKey="earnings"
-              stroke="#d6b46d"
-              strokeWidth={3}
-            />
-
-          </LineChart>
-
-        </ResponsiveContainer>
-
-      </div>
-
-      {/* MY PROPERTIES */}
+      {/* PROPERTIES */}
       <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
         My Properties
       </h2>
@@ -200,48 +145,19 @@ return (
       <div className="grid md:grid-cols-3 gap-6 mb-10">
 
         {properties.map((p) => (
-          <div
-            key={p._id}
-            className="bg-[#111827] p-4 rounded-xl border border-gray-700"
-          >
-            <h3 className="text-xl font-bold">
-              {p.title}
-            </h3>
+          <div key={p._id} className="bg-[#111827] p-4 rounded-xl">
 
-            <p className="text-gray-400">
-              {p.location}
-            </p>
-
-            <p className="text-[#d6b46d] mt-2">
-              ৳ {p.price}
-            </p>
-
-            <p className="text-sm mt-2">
-              Status: {p.status}
-            </p>
-
-            <div className="flex gap-2 mt-4">
-
-  <button
-    className="bg-blue-600 px-3 py-1 rounded"
-  >
-    Update
-  </button>
-
-  <button
-    className="bg-red-600 px-3 py-1 rounded"
-  >
-    Delete
-  </button>
-
-</div>
+            <h3 className="text-xl font-bold">{p.title}</h3>
+            <p>{p.location}</p>
+            <p className="text-[#d6b46d]">৳ {p.price}</p>
+            <p>Status: {p.status}</p>
 
           </div>
         ))}
 
       </div>
 
-      {/* BOOKING REQUESTS */}
+      {/* BOOKINGS */}
       <h2 className="text-2xl font-bold text-[#d6b46d] mb-4">
         Booking Requests
       </h2>
@@ -249,58 +165,67 @@ return (
       <div className="space-y-4">
 
         {bookings.map((b) => (
-          <div
-            key={b._id}
-            className="bg-[#111827] p-4 rounded-xl border border-gray-700"
-          >
-            <h3 className="text-xl font-bold">
+          <div key={b._id} className="bg-[#111827] p-4 rounded-xl">
+
+            <h3 className="font-bold">
               {b.propertyId?.title}
             </h3>
 
-            <p className="text-gray-400">
-              Tenant: {b.userId?.name}
-            </p>
+            <p>Tenant: {b.userId?.name}</p>
+            <p>Move-in: {b.moveInDate}</p>
+            <p>Contact: {b.contactNumber}</p>
 
-            <p>
-              Move-in: {b.moveInDate}
-            </p>
+            <p>Status: {b.status}</p>
 
-            <p>
-              Contact: {b.contactNumber}
-            </p>
+            <div className="flex gap-3 mt-3">
 
-            <div className="flex gap-4 mt-2">
+              <button className="bg-green-600 px-3 py-1 rounded">
+                Approve
+              </button>
 
-              <span className="text-yellow-400">
-                {b.status}
-              </span>
+              <button className="bg-red-600 px-3 py-1 rounded">
+                Reject
+              </button>
 
-              <span className="text-green-400">
-                {b.paymentStatus}
-              </span>
+              <button
+                onClick={() => setSelected(b)}
+                className="text-blue-400 underline"
+              >
+                👁️ View
+              </button>
 
             </div>
-
-            <div className="flex gap-2 mt-3">
-
-  <button
-    className="bg-green-600 px-3 py-1 rounded"
-  >
-    Approve
-  </button>
-
-  <button
-    className="bg-red-600 px-3 py-1 rounded"
-  >
-    Reject
-  </button>
-
-</div>
 
           </div>
         ))}
 
       </div>
+
+      {/* MODAL */}
+      {selected && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
+
+          <div className="bg-white p-6 rounded w-96">
+
+            <h2 className="text-xl font-bold mb-4 text-black">
+              Rejection Details
+            </h2>
+
+            <p className="text-black">
+              {selected.rejectionReason || "No reason provided"}
+            </p>
+
+            <button
+              onClick={() => setSelected(null)}
+              className="mt-4 bg-red-500 text-white px-4 py-2"
+            >
+              Close
+            </button>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );
