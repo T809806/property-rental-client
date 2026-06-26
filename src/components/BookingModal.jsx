@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
-const BookingModal = ({ property, user, onClose }) => {
+const BookingModal = ({ property, onClose }) => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -12,19 +12,31 @@ const BookingModal = ({ property, user, onClose }) => {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleBooking = async () => {
+
+      if (!form.moveInDate || !form.contactNumber) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+
     try {
       const token = localStorage.getItem("token");
 
-      const res = await api.post(
-        "/bookings",
+      
+      
+
+      // Create Payment Intent
+      const payment = await api.post(
+        "/payment/create-payment-intent",
         {
-          propertyId: property._id,
-          userId: user?._id,
-          ...form,
+          amount: property.price,
         },
         {
           headers: {
@@ -33,55 +45,68 @@ const BookingModal = ({ property, user, onClose }) => {
         }
       );
 
-      alert("Booking Successful");
+      // Redirect to Payment Page
+      navigate("/payment", {
+        state: {
+          clientSecret: payment.data.clientSecret,
+          property,
+            bookingData:form
+        },
+      });
 
-      // redirect to payment page
-      navigate("/payment");
     } catch (error) {
       console.log(error);
-      alert("Booking failed");
+      alert("Unable to proceed to payment");
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center">
-      <div className="bg-[#111827] p-6 rounded w-[400px] text-white">
+    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
+      <div className="bg-[#111827] p-6 rounded-xl w-[400px]">
 
-        <h2 className="text-xl mb-4 text-[#d6b46d]">
+        <h2 className="text-2xl font-bold text-[#d6b46d] mb-5">
           Book Property
         </h2>
 
         <input
-          name="moveInDate"
           type="date"
+          name="moveInDate"
+          value={form.moveInDate}
           onChange={handleChange}
-          className="w-full p-2 mb-3 bg-black"
+          className="w-full p-3 rounded bg-black border border-gray-700 mb-3"
         />
 
         <input
+          type="text"
           name="contactNumber"
           placeholder="Contact Number"
+          value={form.contactNumber}
           onChange={handleChange}
-          className="w-full p-2 mb-3 bg-black"
+          className="w-full p-3 rounded bg-black border border-gray-700 mb-3"
         />
 
         <textarea
           name="notes"
           placeholder="Additional Notes"
+          value={form.notes}
           onChange={handleChange}
-          className="w-full p-2 mb-3 bg-black"
+          className="w-full p-3 rounded bg-black border border-gray-700 mb-4"
         />
 
         <button
           onClick={handleBooking}
-          className="bg-[#d6b46d] text-black px-4 py-2 w-full"
+          className="w-full bg-[#d6b46d] text-black py-3 rounded-lg font-semibold hover:opacity-90"
         >
-          Confirm Booking
+          Proceed to Payment
         </button>
 
-        <button onClick={onClose} className="mt-2 text-red-400">
+        <button
+          onClick={onClose}
+          className="w-full mt-3 border border-red-500 text-red-400 py-3 rounded-lg"
+        >
           Close
         </button>
+
       </div>
     </div>
   );

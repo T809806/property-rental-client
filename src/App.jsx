@@ -14,11 +14,13 @@ import AddProperty from "./pages/AddProperty";
 
 import PrivateRoute from "./components/PrivateRoute";
 
-import Success from "./pages/Success";
+
 import Cancel from "./pages/Cancel";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ErrorPage from "./pages/ErrorPage";
+import Payment from "./pages/Payment";
+import Success from "./pages/Success";
 
 
 const App = () => {
@@ -31,23 +33,58 @@ const App = () => {
       {/* CONTENT */}
       <main className="flex-1">
         <Routes>
+    <Route path="/" element={<Home />} />
+<Route path="/properties" element={<Properties />} />
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
 
-          <Route path="/" element={<Home />} />
-          <Route path="/properties" element={<Properties />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+<Route
+  path="/dashboard"
+  element={<PrivateRoute><Dashboard /></PrivateRoute>}
+/>
 
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/property/:id" element={<PrivateRoute><PropertyDetails /></PrivateRoute>} />
-          <Route path="/add-property" element={<PrivateRoute><AddProperty /></PrivateRoute>} />
-          <Route path="/owner-dashboard" element={<PrivateRoute><OwnerDashboard /></PrivateRoute>} />
-          <Route path="/admin-dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+<Route
+  path="/profile"
+  element={<PrivateRoute><Profile /></PrivateRoute>}
+/>
 
-          <Route path="/success" element={<Success />} />
-          <Route path="/cancel" element={<Cancel />} />
+<Route
+  path="/property/:id"
+  element={<PrivateRoute><PropertyDetails /></PrivateRoute>}
+/>
 
-          <Route path="*" element={<ErrorPage />} />
+<Route
+  path="/add-property"
+  element={<PrivateRoute><AddProperty /></PrivateRoute>}
+/>
+
+<Route
+  path="/owner-dashboard"
+  element={<PrivateRoute><OwnerDashboard /></PrivateRoute>}
+/>
+
+<Route
+  path="/admin-dashboard"
+  element={<PrivateRoute><AdminDashboard /></PrivateRoute>}
+/>
+
+{/* NEW PAYMENT ROUTE */}
+<Route
+  path="/payment"
+  element={
+    <PrivateRoute>
+      <Payment />
+    </PrivateRoute>
+  }
+/>
+
+<Route path="/success" element={<Success />} />
+<Route path="/cancel" element={<Cancel />} />
+
+<Route path="*" element={<ErrorPage />} />
+<Route path="/success" element={<Success />} />
+         
+          
 
         </Routes>
       </main>
