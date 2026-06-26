@@ -2,142 +2,115 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
 
+  const [open, setOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    navigate("/login");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      navigate("/login");
+
   };
 
-  // 🔥 ACTIVE STYLE FUNCTION
-  const linkStyle = ({ isActive }) =>
+ const linkStyle = ({ isActive }) =>
+
     `px-3 py-1 rounded-md transition-all duration-300 ${
       isActive
         ? "bg-[#d6b46d] text-black"
         : "text-gray-200 hover:bg-[#d6b46d] hover:text-black"
     }`;
 
-  return (
-    <nav className="bg-[#050b14] border-b border-[#1f2937]">
+ return (
 
-      {/* TOP BAR */}
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+ <nav className="bg-[#050b14] border-b border-[#1f2937]">
 
-        {/* LOGO */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10">
-            <svg viewBox="0 0 64 64" fill="none">
-              <rect x="6" y="6" width="52" height="52" rx="12" fill="#d6b46d" />
-              <path d="M18 34L32 22L46 34V48H18V34Z" stroke="black" strokeWidth="3" />
-              <path d="M26 48V36H38V48" stroke="black" strokeWidth="3" />
-            </svg>
-          </div>
+    <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div className="flex items-center gap-3">
+    <div className="w-10 h-10">
+    <svg viewBox="0 0 64 64" fill="none">
+    <rect x="6" y="6" width="52" height="52" rx="12" fill="#d6b46d" />
+    <path d="M18 34L32 22L46 34V48H18V34Z" stroke="black" strokeWidth="3" />
+    <path d="M26 48V36H38V48" stroke="black" strokeWidth="3" />
+    </svg>
 
-          <h1 className="text-[#d6b46d] font-bold text-xl">
-            RentalHub
-          </h1>
-        </div>
+  </div>
 
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-4">
+   <h1 className="text-[#d6b46d] font-bold text-xl"> RentalHub </h1>
 
-          <NavLink to="/" className={linkStyle}>
-            Home
-          </NavLink>
+ </div>
 
-          <NavLink to="/properties" className={linkStyle}>
-            Properties
-          </NavLink>
+  <div className="hidden md:flex items-center gap-4">
 
-          {!user && (
-            <>
-              <NavLink to="/login" className={linkStyle}>
-                Login
-              </NavLink>
+    <NavLink to="/" className={linkStyle}>  Home  </NavLink>
+    <NavLink to="/properties" className={linkStyle}>  Properties </NavLink>
 
-              <NavLink to="/register" className={linkStyle}>
-                Register
-              </NavLink>
-            </>
-          )}
+   {!user && (
+     <>
+   <NavLink to="/login" className={linkStyle}> Login </NavLink>
+   <NavLink to="/register" className={linkStyle}>  Register  </NavLink>
+   </>
 
-          {user && (
-            <>
-              <NavLink to="/dashboard" className={linkStyle}>
-                Dashboard
-              </NavLink>
+   )}
 
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 px-3 py-1 rounded text-white hover:opacity-80 transition"
-              >
-                Logout
-              </button>
-            </>
-          )}
+   {user && (
+    <>
+   <NavLink to="/dashboard" className={linkStyle}> Dashboard </NavLink>
 
-        </div>
+     <button
+       onClick={handleLogout}
+      className="bg-red-500 px-3 py-1 rounded text-white hover:opacity-80 transition" > Logout </button>
+   </>
 
-        {/* MOBILE HAMBURGER */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-3xl text-[#d6b46d]"
-        >
-          ☰
-        </button>
+ )}
 
-      </div>
+</div>
 
-      {/* MOBILE MENU */}
-      {open && (
-        <div className="md:hidden px-4 pb-4 flex flex-col gap-3">
+ <button
+   onClick={() => setOpen(!open)}
+  className="md:hidden text-3xl text-[#d6b46d]"
+ >
+   ☰
+</button>
 
-          <NavLink onClick={() => setOpen(false)} to="/" className={linkStyle}>
-            Home
-          </NavLink>
+  </div>
 
-          <NavLink onClick={() => setOpen(false)} to="/properties" className={linkStyle}>
-            Properties
-          </NavLink>
+  
+{open && (
+ <div className="md:hidden px-4 pb-4 flex flex-col gap-3">
 
-          {!user && (
-            <>
-              <NavLink onClick={() => setOpen(false)} to="/login" className={linkStyle}>
-                Login
-              </NavLink>
+ <NavLink onClick={() => setOpen(false)} to="/" className={linkStyle}> Home </NavLink>
+ <NavLink onClick={() => setOpen(false)} to="/properties" className={linkStyle}> Properties </NavLink>
 
-              <NavLink onClick={() => setOpen(false)} to="/register" className={linkStyle}>
-                Register
-              </NavLink>
-            </>
-          )}
+ {!user && (
+     <>
+ <NavLink onClick={() => setOpen(false)} to="/login" className={linkStyle}> Login </NavLink>
+ <NavLink onClick={() => setOpen(false)} to="/register" className={linkStyle}> Register </NavLink>
+   </>
 
-          {user && (
-            <>
-              <NavLink onClick={() => setOpen(false)} to="/dashboard" className={linkStyle}>
-                Dashboard
-              </NavLink>
+ )}
 
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  handleLogout();
-                }}
-                className="bg-red-500 px-3 py-1 rounded text-white text-left"
-              >
-                Logout
-              </button>
-            </>
-          )}
+ {user && (
+   <>
+ <NavLink onClick={() => setOpen(false)} to="/dashboard" className={linkStyle}> Dashboard </NavLink>
 
-        </div>
-      )}
+ <button
+    onClick={() => {
+   setOpen(false);
+   handleLogout();
+   }}
+ className="bg-red-500 px-3 py-1 rounded text-white text-left" > Logout </button>
+ </>
 
-    </nav>
+   )}
+
+ </div>
+
+ )}
+
+ </nav>
+ 
   );
 };
 
