@@ -54,7 +54,7 @@ const PropertyDetails = () => {
 
     try {
       const res = await api.post(
-        "/payment/create-session",
+        "/payment/create-payment-intent",
         {
           amount: property.price,
           bookingId: "temp-booking-id",
@@ -66,11 +66,12 @@ const PropertyDetails = () => {
         }
       );
 
-      window.location.href = res.data.url;
-    } catch (error) {
-      console.log(error);
-      alert("Payment failed");
-    }
+      console.log(res.data);
+alert("Payment Intent Created Successfully");
+    }catch (error) {
+  console.log("Payment Error:", error.response?.data);
+  alert(error.response?.data?.message || "Payment failed");
+}
   };
 
   // REVIEW
