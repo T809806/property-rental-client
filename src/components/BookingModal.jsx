@@ -20,53 +20,44 @@ const BookingModal = ({ property, onClose }) => {
 
   const handleBooking = async () => {
 
-      if (!form.moveInDate || !form.contactNumber) {
+ if (!form.moveInDate || !form.contactNumber) {
     alert("Please fill all required fields.");
     return;
   }
 
-
-    try {
+ try {
       const token = localStorage.getItem("token");
-
-      
-      
-
-      // Create Payment Intent
       const payment = await api.post(
-        "/payment/create-payment-intent",
-        {
-          amount: property.price,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+   "/payment/create-payment-intent",
+   {
+   amount: property.price,
+   },
+   {
+   headers: {
+   Authorization: `Bearer ${token}`,
+   },
+  }
+  );
 
-      // Redirect to Payment Page
-      navigate("/payment", {
-        state: {
-          clientSecret: payment.data.clientSecret,
-          property,
-            bookingData:form
-        },
-      });
+ navigate("/payment", {
+   state: {
+   clientSecret: payment.data.clientSecret,
+  property,
+   bookingData:form
+   },
+  });
 
-    } catch (error) {
-      console.log(error);
-      alert("Unable to proceed to payment");
-    }
+ } catch (error) {
+ console.log(error);
+ alert("Unable to proceed to payment");
+ }
   };
 
   return (
     <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
       <div className="bg-[#111827] p-6 rounded-xl w-[400px]">
 
-        <h2 className="text-2xl font-bold text-[#d6b46d] mb-5">
-          Book Property
-        </h2>
+   <h2 className="text-2xl font-bold text-[#d6b46d] mb-5"> Book Property </h2>
 
         <input
           type="date"
