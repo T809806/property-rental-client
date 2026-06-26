@@ -30,64 +30,63 @@ const AddProperty = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      setLoading(true);
+ try {
+ setLoading(true);
+ const token =
+ localStorage.getItem("token");
 
-      const token =
-        localStorage.getItem("token");
+ await api.post(
+   "/properties",
+ {
+   title: form.title,
+   description: form.description,
+    location: form.location,
+   propertyType:
+   form.propertyType,
+     price: Number(form.price),
+   rentType: form.rentType,
+   bedrooms: Number(
+   form.bedrooms
+   ),
+   bathrooms: Number(
+   form.bathrooms
+   ),
+   propertySize:
+     form.propertySize,
 
-      await api.post(
-        "/properties",
-        {
-          title: form.title,
-          description: form.description,
-          location: form.location,
-          propertyType:
-            form.propertyType,
-          price: Number(form.price),
-          rentType: form.rentType,
-          bedrooms: Number(
-            form.bedrooms
-          ),
-          bathrooms: Number(
-            form.bathrooms
-          ),
-          propertySize:
-            form.propertySize,
+     amenities:
+     form.amenities
+     .split(",")
+      .map((item) =>
+     item.trim()
+   ),
 
-          amenities:
-            form.amenities
-              .split(",")
-              .map((item) =>
-                item.trim()
-              ),
+ images:
+   form.images
+   .split(",")
+   .map((item) =>
+   item.trim()
+   ),
 
-          images:
-            form.images
-              .split(",")
-              .map((item) =>
-                item.trim()
-              ),
+ extraFeatures:
+ form.extraFeatures
+   .split(",")
+  .map((item) =>
+   item.trim()
+   ),
 
-          extraFeatures:
-            form.extraFeatures
-              .split(",")
-              .map((item) =>
-                item.trim()
-              ),
+   status: "Pending",
+ },
+ {
+ headers: {
+   Authorization: `Bearer ${token}`,
+   },
+ }
+  );
 
-          status: "Pending",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setMessage(
-        "✅ Property Added Successfully"
-      );
+ setMessage(
+ "✅ Property Added Successfully"
+ );
 
       setForm({
         title: "",
@@ -357,6 +356,7 @@ const AddProperty = () => {
 </form>
 
     </div>
+    
   );
 };
 
