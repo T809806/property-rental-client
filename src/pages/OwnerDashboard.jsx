@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import Loading from "./Loading";
+import Swal from "sweetalert2";
 
 import {
   LineChart,
@@ -41,7 +42,12 @@ const OwnerDashboard = () => {
       }
     );
 
-    alert("Booking Approved Successfully");
+    Swal.fire({
+      icon: "success",
+      title: "Booking Approved!",
+      text: "The booking has been approved successfully.",
+      confirmButtonColor: "#d6b46d",
+    });
 
     window.location.reload();
   } catch (error) {
@@ -69,7 +75,12 @@ const handleReject = async (id) => {
       }
     );
 
-    alert("Booking Rejected Successfully");
+    Swal.fire({
+  icon: "success",
+  title: "Booking Rejected!",
+  text: "The booking has been rejected",
+  confirmButtonColor: "#d6b46d",
+});
 
     window.location.reload();
   } catch (error) {
