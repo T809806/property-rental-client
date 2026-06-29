@@ -168,7 +168,7 @@ console.log("PROPERTY RESPONSE =", propertyRes.data);
 
             <div className="flex gap-3 mt-3">
 
-              <button className="bg-green-600 px-3 py-1 rounded">
+              <button   onClick={() => handleApprove(b._id)} className="bg-green-600 px-3 py-1 rounded">
                 Approve
               </button>
 
