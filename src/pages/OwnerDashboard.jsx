@@ -38,7 +38,7 @@ const OwnerDashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+console.log("PROPERTY RESPONSE =", propertyRes.data);
    const ownerProperties = propertyRes.data.properties.filter(
   (p) => p.owner?._id === user._id || p.owner === user._id
 
