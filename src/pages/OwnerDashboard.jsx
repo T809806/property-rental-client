@@ -47,7 +47,7 @@ console.log("PROPERTY RESPONSE =", propertyRes.data);
  setProperties(ownerProperties);
 
        
- const bookingRes = await api.get("/bookings/owner/all", {
+ const bookingRes = await api.get("/bookings/owner", {
      headers: {
    Authorization: `Bearer ${token}`,
     },
