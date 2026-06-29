@@ -29,6 +29,55 @@ const OwnerDashboard = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const handleApprove = async (id) => {
+  try {
+    await api.patch(
+      `/bookings/approve/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Booking Approved Successfully");
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+    alert("Failed to approve booking");
+  }
+};
+
+
+const handleReject = async (id) => {
+  try {
+    const reason = prompt("Enter rejection reason:");
+
+    if (!reason) return;
+
+    await api.patch(
+      `/bookings/reject/${id}`,
+      {
+        reason,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Booking Rejected Successfully");
+
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+    alert("Failed to reject booking");
+  }
+};
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -172,7 +221,7 @@ console.log("PROPERTY RESPONSE =", propertyRes.data);
                 Approve
               </button>
 
-              <button className="bg-red-600 px-3 py-1 rounded">
+              <button onClick={() => handleReject(b._id)} className="bg-red-600 px-3 py-1 rounded">
                 Reject
               </button>
 
