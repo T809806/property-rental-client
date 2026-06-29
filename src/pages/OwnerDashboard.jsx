@@ -32,29 +32,30 @@ const OwnerDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // OWNER PROPERTIES
+       
         const propertyRes = await api.get("/properties", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        const ownerProperties = propertyRes.data.filter(
-          (p) => p.owner?._id === user._id || p.owner === user._id
-        );
+   const ownerProperties = propertyRes.data.properties.filter(
+  (p) => p.owner?._id === user._id || p.owner === user._id
 
-        setProperties(ownerProperties);
+ );
 
-        // OWNER BOOKINGS
-        const bookingRes = await api.get("/bookings/owner/all", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+ setProperties(ownerProperties);
+
+       
+ const bookingRes = await api.get("/bookings/owner/all", {
+     headers: {
+   Authorization: `Bearer ${token}`,
+    },
+ });
 
         setBookings(bookingRes.data);
 
-        // MONTHLY EARNINGS
+      
         const earningsRes = await api.get("/owner/monthly-earnings", {
           headers: {
             Authorization: `Bearer ${token}`,
